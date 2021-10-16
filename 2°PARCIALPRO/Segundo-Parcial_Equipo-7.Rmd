@@ -88,16 +88,14 @@ STPM10ALVA <- PM10ALVA %>%
   ggplot(   aes(x=PM10AO, y=value) ) +
   geom_line()
 # Convertimos el objeto gráfico a formato plotly
-#STPM10ALVA<- ggplotly(STPM10ALVA)
+STPM10ALVA<- ggplotly(STPM10ALVA)
 
 STPM10ALVA
 
 ```
 <div align="center"> **Figura 1**: *Serie de tiempo promedio de partículas suspendidas de 10 micrómetros en la alcaldía Álvaro Obregón.*
-En la Figura 1 se observa que durante marzo las emisiones fueron mayores y 
-constantes, mientras que en abril se presentó un incremento que duró 
-aproximadamente una semana, para después disminur progresivamente
 
+En la Figura 1 se observa el promedio de partículas suspendidas de 10 micrómetros en la alcaldía de Álvaro Obregón en un periodo comprendido de 01/01/2020 hasta el 31/07/2021. Podemos observar que los promedios más altos de 2020 están en torno al valor 61-66 y toman lugar en enero, marzo, abril, mayo y junio. En 2021 enero muestra un comportamiento similar e incluso alcanza un pico de **80** el 27/01/2021, en marzo se muestran patrones similares al año anterior y también tiene un pico considerable de **81** el 28/03/2021 y en abril se tiene un comportamiento similar al del año pasado; a partir del cuarto mes del año los promedios tienen una tendencia decreciente.
 
 *Partículas suspendidas (PM) de 2.5 micrómetros registradas en ÁlvarO Obregón de enero 2020 a julio 2021*
 ```{r}
@@ -113,14 +111,14 @@ STPM25ALVA <- PM25ALVA%>%
   ggplot(   aes(x=PM25AO, y=value) ) +
   geom_line()
 # Convertimos el objeto gráfico a formato plotly
-#STPM25ALVA<- ggplotly(STPM25ALVA)
+STPM25ALVA<- ggplotly(STPM25ALVA)
 
 STPM25ALVA
 
 ```
 
 <div align="center"> **Figura 2**: *Serie de tiempo promedio de partículas suspendidas de 2.5 micrómetros en la alcaldía Álvaro Obregón.*
-En la Figura 2 se observa casi el mismo comportamiento que en la Figura 1.
+En la Figura 2 se observa un patrón más irregular, los valores son bastante más bajos en comparación con las de 10 micrómetros. En al año 2020 no se tienen valores muy elevados salvo en mayo, donde encontramos valores de 47-48 y en diciembre donde también encontramos un valor de 48. En el año 2021, los valore más altos que encontramos son de la talla de los del año pasado pero toman lugar en abril.
 
 *Partículas suspendidas (PM) de 10 micrómetros registradas en Cuajimalpa de enero 2020 a julio 2021*
 
@@ -136,14 +134,13 @@ STPM10CUAJI <- PM10CUAJI %>%
   ggplot(   aes(x=PM10CM, y=value) ) +
   geom_line()
 # Convertimos el objeto gráfico a formato plotly
-#STPM10CUAJI<- ggplotly(STPM10CUAJI)
+STPM10CUAJI<- ggplotly(STPM10CUAJI)
 
 STPM10CUAJI
 ```
 
 <div align="center"> **Figura 3**: *Serie de tiempo promedio de partículas suspendidas de 10 micrómetros en la alcaldía de Cuajimalpa*
-En la Figura 3 se observa que se presentaron altas emisones que se mantuvieron 
-relativamente constantes desde mediados de febrero hasta mediados de mayo.
+En la Figura 3 se observan picos con valores similares a los de la alcaldía Álvaro Obregón, a inicios de 2020, en enero, encontramos un valor elevado de 65, pero los picos considerables se encuentran entre 78 y 81 y los encontramos en marzo y mayo respectivamente. Después carecemos de información por lo que resta del año. En 2021 encontramos los valores más altos en marzo y en enero.
 
 
 *Partículas suspendidas (PM) de 2.5 micrómetros registradas en Cuajimalpa de enero 2020 a julio 2021*
@@ -160,17 +157,14 @@ STPM25CUAJI <- PM25CUAJI %>%
 ggplot(   aes(x=PM25CM, y=value) ) +
 geom_line()
 # Convertimos el objeto gráfico a formato plotly
-#ggplotly(STPM25CUAJI)
+STPM25CUAJI<-ggplotly(STPM25CUAJI)
 STPM25CUAJI
 ```
  <div align="center"> **Figura 4**: *Serie de tiempo promedio de partículas suspendidas de 2.5 micrómetros en la alcaldía de Cuajimalpa*
-En la Figura 4 se observa una concentración elevada que dura desde mediados de 
-febrero hasta principios de abril. Por otro lado, hay un crecimiento lineal que 
-dura de abril a mayo, comportamiento generado por la falla de la estación de 
-monitoreo que dejó de operar durante ese periodo de tiempo. 
+En la Figura 4 se observa un promedio con un comportamiento bastante regular, encontramos un pico de 57 en marzo y otro de 51 en diciembre. En 2021 no se observa ningún pico muy alto, hace falta información. 
  
  
-**PASO3: Gráficos lineales de las emisiones de PM10 y PM2.5** 
+**PASO3: Gráficos lineales de los casos de COVID-19** 
 Ahora vamos a visualizar los casos de COVID-19 registrados en las alcaldías.
 
 *Casos positivos a COVID-19 registrados en ÁlvarO Obregón de enero 2020 a julio 2021*
@@ -188,11 +182,12 @@ STCONALVA <- CONALVA %>%
   ggplot(   aes(x=CONTAGIOS_Alvaro_Obregon, y=Casos) ) +
   geom_line()
 # Convertimos el objeto gráfico a formato plotly
-#ggplotly(STCONALVA)
+STCONALVA<-ggplotly(STCONALVA)
 STCONALVA
 ```
   <div align="center"> **Figura 5**: *Serie de tiempo  de casos diarios de COVID-19 en la alcaldía Álvaro Obregón*
-En la Figura 5 se sobservan los casos registrados de COVID-19, donde se muestra un decremento iniciendo en enero, mientras que de nuevo comienza a incrementar casi de forma exponencial a partir de julio.
+  
+En la Figura 5 se sobservan los casos registrados de COVID-19 desde que inicio la pandemia, como se puede observar, en 2020 no hubo un crecimiento significativo en el número de casos hasta que empezó el último trimestre del año. En 2021 tenemos un número sumamente grande de casos confirmados todo enero, empieza a disminuir a inicios de febrero y mantiene esa tendencia con ligeras fluctuaciones hasta finales de junio, donde comienza una nueva ola.
  
  
 *Casos positivos a COVID-19 registrados en Cuajimalpa de enero 2020 a julio 2021*
@@ -210,13 +205,13 @@ STCONCUAJI <- CONCUAJI %>%
   ggplot(   aes(x=CONTAGIOS_Cuajimalpa, y=Casos) ) +
   geom_line()
 # Convertimos el objeto gráfico a formato plotly
-#STCONCUAJI<- ggplotly(STCONCUAJI)
+STCONCUAJI<- ggplotly(STCONCUAJI)
 
 STCONCUAJI
 ```
   <div align="center"> **Figura 6**: *Serie de tiempo casos diarios de COVID-19 en la alcaldía de Cuajimalpa*
 El comportamiento observado en la Figura 6 es muy similirar a lo que muestra la
-gráfica lineal de los casos posuitvos a COVID-19 en la alcaldía de Álvaro Obregón.
+gráfica lineal de los casos posuitvos a COVID-19 en la alcaldía de Álvaro Obregón, solo difiere en que el número de casos es significativamente menor.
  
  
  
