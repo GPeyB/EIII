@@ -1,0 +1,261 @@
+---
+title: "Segundo Parcial"
+author: "Martín Morales Trejo y Gabriel Peytral Borja"
+Team: 7
+date: "10/09/2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+<div align="center"> *Equipo 7*
+<div align="center"> *Segundo Parcial*
+
+
+**Instrucciones:** 
+
+En un archivo *Rmd y *HTML o *PDF, deberás entregar el avance total de tu 
+proyecto, en esta ocasión particular se evaluarán dos cosas adicionales:
+
+1.- Que muestres un gráfico de cada una de las variables de interés, con su 
+respectiva interpretación.
+
+2.- Que, con base en los gráficos, plantees tus hipótesis de investigación.
+
+Sube todos los archivos en el espacio correspondiente de Moodle.
+
+**PASO 1: Lectura de bases de datos**
+Primeramente procedemos a leer las bases de datos que contienen las variables 
+de interés
+
+```{r}
+# Comenzaremos por leer nuestras bases de datos previamente curadas
+
+CONALVA<-read.csv("Contagios_Alvaro2020_2021.csv")
+CONCUAJI<-read.csv("Contagios_Cuajimalpa2020_2021.csv")
+
+PM10ALVA<-read.csv("ProPM10_Alvaro2020_2021.csv")
+PM25ALVA<-read.csv("ProPM25_Alvaro2020_2021.csv")
+
+PM10CUAJI<-read.csv("ProPM10_Cuajimalpa2020_2021 .csv")
+PM25CUAJI<-read.csv("ProPM25_Cuajimalpa2020_2021.csv")
+
+#View() #Comando para observar el estado de alguna variable
+#Posteriormente revisamos la estructura de las bases de datos 
+
+str(CONALVA)
+str(CONCUAJI)
+
+str(PM10ALVA)
+str(PM25ALVA)
+
+str(PM10CUAJI)
+str(PM25CUAJI)
+```
+
+
+**PASO 2: Gráficos lineales de las emisiones de PM10 y PM2.5**
+
+En este apartado procedemos a generar la visualización de nuestros datos, 
+empezando por los promedios de partículas suspendidas de 10 y 2.5 micrómetros 
+en las distintas alcaldías.
+
+*Partículas suspendidas (PM) de 10 micrómetros registradas en ÁlvarO Obregón de enero 2020 a julio 2021*
+
+```{r}
+#instalamos y cargamos librerias
+#install.packages("plotly")
+library(plotly)
+library(ggplot2)
+library(dplyr)
+library(hrbrthemes)
+#Instalamos y llamámos una libreria nueva llamada lubridate para hacer que 
+#nuestras fechas tengan formato de fechas 
+PM10AO <- PM10ALVA[,1] # Extraemos la columna de fecha para cambiar su formato
+#install.packages("lubridate")
+library(lubridate)
+PM10AO <- dmy(PM10AO)  # Cambiamos el formato de la columna que extrajimos
+PM10ALVA <- cbind(PM10ALVA, PM10AO) # La pegamos al data frame
+PM10ALVA <- PM10ALVA[,-1] # Borramos la antigua
+str(PM10ALVA) # Verificamos que cambio
+# Graficamos primero una serie de tiempo para ver el promedio de concentración 
+# de PM10 en el año 2021
+STPM10ALVA <- PM10ALVA %>%
+  ggplot(   aes(x=PM10AO, y=value) ) +
+  geom_line()
+# Convertimos el objeto gráfico a formato plotly
+#STPM10ALVA<- ggplotly(STPM10ALVA)
+
+STPM10ALVA
+
+```
+<div align="center"> **Figura 1**: *Serie de tiempo promedio de partículas suspendidas de 10 micrómetros en la alcaldía Álvaro Obregón.*
+En la Figura 1 se observa que durante marzo las emisiones fueron mayores y 
+constantes, mientras que en abril se presentó un incremento que duró 
+aproximadamente una semana, para después disminur progresivamente
+
+
+*Partículas suspendidas (PM) de 2.5 micrómetros registradas en ÁlvarO Obregón de enero 2020 a julio 2021*
+```{r}
+PM25AO <- PM25ALVA[,1] # Extraemos la columna de fecha para cambiar su formato
+
+PM25AO <- dmy(PM25AO)  # Cambiamos el formato de la columna que extrajimos
+PM25ALVA <- cbind(PM25ALVA,PM25AO) # La pegamos al data frame
+PM25ALVA <- PM25ALVA[,-1] # Borramos la antigua
+str(PM25ALVA) # Verificamos que cambio
+# Graficamos primero una serie de tiempo para ver el promedio de concentración 
+# de PM25 en el año 2021
+STPM25ALVA <- PM25ALVA%>%
+  ggplot(   aes(x=PM25AO, y=value) ) +
+  geom_line()
+# Convertimos el objeto gráfico a formato plotly
+#STPM25ALVA<- ggplotly(STPM25ALVA)
+
+STPM25ALVA
+
+```
+
+<div align="center"> **Figura 2**: *Serie de tiempo promedio de partículas suspendidas de 2.5 micrómetros en la alcaldía Álvaro Obregón.*
+En la Figura 2 se observa casi el mismo comportamiento que en la Figura 1.
+
+*Partículas suspendidas (PM) de 10 micrómetros registradas en Cuajimalpa de enero 2020 a julio 2021*
+
+```{r}
+PM10CM <- PM10CUAJI[,1] #Extraemos la columna de fecha para cambiar su formato
+PM10CM <- dmy(PM10CM)  # Cambiamos el formato de la columna que extrajimos
+PM10CUAJI <- cbind(PM10CUAJI,PM10CM) # La pegamos al data frame
+PM10CUAJI <- PM10CUAJI[,-1] # Borramos la antigua
+str(PM10CUAJI) # Verificamos que cambio
+# Graficamos primero una serie de tiempo para ver el promedio de concentración 
+# de PM25 en el año 2021
+STPM10CUAJI <- PM10CUAJI %>%
+  ggplot(   aes(x=PM10CM, y=value) ) +
+  geom_line()
+# Convertimos el objeto gráfico a formato plotly
+#STPM10CUAJI<- ggplotly(STPM10CUAJI)
+
+STPM10CUAJI
+```
+
+<div align="center"> **Figura 3**: *Serie de tiempo promedio de partículas suspendidas de 10 micrómetros en la alcaldía de Cuajimalpa*
+En la Figura 3 se observa que se presentaron altas emisones que se mantuvieron 
+relativamente constantes desde mediados de febrero hasta mediados de mayo.
+
+
+*Partículas suspendidas (PM) de 2.5 micrómetros registradas en Cuajimalpa de enero 2020 a julio 2021*
+
+```{r}
+PM25CM <- PM25CUAJI[,1] #Extraemos la columna de fecha para cambiar su formato
+PM25CM <- dmy(PM25CM)  # Cambiamos el formato de la columna que extrajimos
+PM25CUAJI <- cbind(PM25CUAJI,PM25CM) # La pegamos al data frame
+PM25CUAJI <- PM25CUAJI[,-1] # Borramos la antigua
+str(PM25CUAJI) # Verificamos que cambio
+# Graficamos primero una serie de tiempo para ver el promedio de concentración 
+# de PM25 en el año 2021
+STPM25CUAJI <- PM25CUAJI %>%
+ggplot(   aes(x=PM25CM, y=value) ) +
+geom_line()
+# Convertimos el objeto gráfico a formato plotly
+#ggplotly(STPM25CUAJI)
+STPM25CUAJI
+```
+ <div align="center"> **Figura 4**: *Serie de tiempo promedio de partículas suspendidas de 2.5 micrómetros en la alcaldía de Cuajimalpa*
+En la Figura 4 se observa una concentración elevada que dura desde mediados de 
+febrero hasta principios de abril. Por otro lado, hay un crecimiento lineal que 
+dura de abril a mayo, comportamiento generado por la falla de la estación de 
+monitoreo que dejó de operar durante ese periodo de tiempo. 
+ 
+ 
+**PASO3: Gráficos lineales de las emisiones de PM10 y PM2.5** 
+Ahora vamos a visualizar los casos de COVID-19 registrados en las alcaldías.
+
+*Casos positivos a COVID-19 registrados en ÁlvarO Obregón de enero 2020 a julio 2021*
+
+```{r}
+CONTAGIOSA <- CONALVA[,2] #Extraemos la columna de fecha para cambiar su formato
+CONTAGIOS_Alvaro_Obregon <- dmy(CONTAGIOSA)  # Cambiamos el formato de la columna que extrajimos
+CONALVA <- cbind(CONALVA,CONTAGIOS_Alvaro_Obregon) # La pegamos al data frame
+CONALVA <- CONALVA[,-2] # Borramos la antigua
+str(CONALVA) # Verificamos que cambio
+# Graficamos primero una serie de tiempo para ver el promedio de concentración 
+# de PM25 en el año 2021
+#View(CONALVA)
+STCONALVA <- CONALVA %>%
+  ggplot(   aes(x=CONTAGIOS_Alvaro_Obregon, y=Casos) ) +
+  geom_line()
+# Convertimos el objeto gráfico a formato plotly
+#ggplotly(STCONALVA)
+STCONALVA
+```
+  <div align="center"> **Figura 5**: *Serie de tiempo  de casos diarios de COVID-19 en la alcaldía Álvaro Obregón*
+En la Figura 5 se sobservan los casos registrados de COVID-19, donde se muestra un decremento iniciendo en enero, mientras que de nuevo comienza a incrementar casi de forma exponencial a partir de julio.
+ 
+ 
+*Casos positivos a COVID-19 registrados en Cuajimalpa de enero 2020 a julio 2021*
+
+```{r}
+CONTAGIOSCM <- CONCUAJI[,2] #Extraemos la columna de fecha para cambiar su formato
+
+CONTAGIOS_Cuajimalpa <- dmy(CONTAGIOSCM)  # Cambiamos el formato de la columna que extrajimos
+CONCUAJI <- cbind(CONCUAJI,CONTAGIOS_Cuajimalpa) # La pegamos al data frame
+CONCUAJI <- CONCUAJI[,-2] # Borramos la antigua
+str(CONCUAJI) # Verificamos que cambio
+# Graficamos primero una serie de tiempo para ver el promedio de concentración 
+# de PM25 en el año 2021
+STCONCUAJI <- CONCUAJI %>%
+  ggplot(   aes(x=CONTAGIOS_Cuajimalpa, y=Casos) ) +
+  geom_line()
+# Convertimos el objeto gráfico a formato plotly
+#STCONCUAJI<- ggplotly(STCONCUAJI)
+
+STCONCUAJI
+```
+  <div align="center"> **Figura 6**: *Serie de tiempo casos diarios de COVID-19 en la alcaldía de Cuajimalpa*
+El comportamiento observado en la Figura 6 es muy similirar a lo que muestra la
+gráfica lineal de los casos posuitvos a COVID-19 en la alcaldía de Álvaro Obregón.
+ 
+ 
+ 
+Ahora que tenemos nuestra información en gráficos, podemos empezar con el planteamiento de una hipótesis, para apoyarnos daremos un último vistazo a las gráficas que generamos:
+ 
+```{r}
+# Instalamos y cargamos librería para ver las gráficas que tengan el mismo 
+# número de observaciones 
+#install.packages("patchwork")
+library(patchwork)
+
+# Primero observamos las gráficas de contagios en Cuajimalpa y Alvaro Obregón 
+
+STCONALVA + STCONCUAJI
+```
+   <div align="center"> **Figura 7**: *Comparación gráficos de casos diarios de COVID-19 en las alcaldías de Álvaro Obregón y Cuajimalpa de Morelos*
+   
+   
+```{r}
+# Ahora veamos las concentraciones junto a los contagios para Álvaro Obregón
+
+STPM25ALVA + STCONALVA
+```
+  <div align="center"> **Figura 8**: *Comparación de las series de tiempo de los promedios de partículas suspendidas de 10 y 2.5 micrómetros con los contagios diarios en la alcaldía Álvaro Obregón*
+  
+  
+```{r}
+# Ahora para Cujimalpa 
+
+STPM10CUAJI + STPM25CUAJI + STCONCUAJI
+```
+  <div align="center"> **Figura 9**: *Comparación de las series de tiempo de los promedios de partículas suspendidas de 10 y 2.5 micrómetros con los contagios diarios en la alcaldía Cuajimalpa de Morelos*
+  
+  
+**Hipótesis**
+
+*FALTA* 
+
+Como se puede observar, es complicado establecer una relación directa, por lo cual se tiene que evaluar el enfoque del trabajo. 
+Opción a explorar: Considerar los primeros meses de pandemia donde el uso de cubrebocas no estaba completamente normalizado.
+  
+ 
